@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MealMind</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/animate/animate.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>MealMind</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ url_for('index') }}" class="nav-item nav-link active">Home</a>
+                <a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
+
+
+                <!---<a href="{{ url_for('contact') }}" class="nav-item nav-link">Predictions</a>--->
+                <a href="{{ url_for('prediction') }}" class="nav-item nav-link">Recommendations</a>
+                <a href="{{ url_for('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log Out<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Recommendation</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Recommendation</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">GET RESULT</h6>
+                <h1 class="mb-5">Recipe Recommendation</h1>
+            </div>
+            <div class="row g-4">
+
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+
+                </div>
+                <div class="col-lg-4 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <form id="appointment-form" role="form" method="post" action="{{ url_for('prediction1')}}">
+                        <div class="row g-3">
+
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Enter ingredients here" id="message"
+                                        name="message" style="height: 150px"></textarea>
+                                    <label for="message">Enter the ingredients</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if res == 1 %}
+    <div class="container mb-5">
+        <h2 class="text-center text-primary mb-4">Top Recipe Recommendations</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered text-center table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Recipe Name</th>
+                        <th>Prep Time</th>
+                        <th>Cook Time</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if recipe_list %}
+                    {% for recipe in recipe_list %}
+                    <tr>
+                        <td><img src="{{ recipe.photo_url }}" alt="Image" width="100"></td>
+                        <td>{{ recipe.title }}</td>
+                        <td>{{ recipe.prep_time | format_time }}</td>
+                        <td>{{ recipe.cook_time | format_time }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#recipeModal" data-title="{{ recipe.title }}"
+                                data-image="{{ recipe.photo_url }}" data-prep="{{ recipe.prep_time | format_time }}"
+                                data-cook="{{ recipe.cook_time | format_time }}"
+                                data-ingredients="{{ recipe.ingredients }}" data-directions="{{ recipe.directions }}"
+                                data-calories="{{ recipe.calories }}" data-fat="{{ recipe.fat }}"
+                                data-carbs="{{ recipe.carbs }}" data-vitamins="{{ recipe.vitamins }}">
+                                View Recipe
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No recipes found matching your ingredients.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Contact End -->
+
+
+    <!-- Footer Start -->
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/lib/wow/wow.min.js"></script>
+    <script src="static/lib/easing/easing.min.js"></script>
+    <script src="static/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="static/js/main.js"></script>
+
+    <!-- Recipe Details Modal -->
+    <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="recipeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="recipeModalLabel">Recipe Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="summary-view">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <img id="modal-image" src="" class="img-fluid rounded w-100"
+                                    style="object-fit: cover; height: 300px;" alt="Recipe Image">
+                            </div>
+                            <div class="col-md-6">
+                                <h4 id="modal-title" class="text-primary mb-3"></h4>
+                                <div class="d-flex mb-3">
+                                    <span class="me-3"><i class="fa fa-clock text-primary me-2"></i>Prep: <span
+                                            id="modal-prep" class="fw-bold"></span></span>
+                                    <span><i class="fa fa-fire text-primary me-2"></i>Cook: <span id="modal-cook"
+                                            class="fw-bold"></span></span>
+                                </div>
+
+                                <h5 class="text-dark border-bottom pb-2">Nutritional Info</h5>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <small class="text-muted">Calories</small>
+                                        <p class="mb-0 fw-bold" id="modal-calories"></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Fat</small>
+                                        <p class="mb-0 fw-bold" id="modal-fat"></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Carbs</small>
+                                        <p class="mb-0 fw-bold" id="modal-carbs"></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Vitamins</small>
+                                        <p class="mb-0 fw-bold" id="modal-vitamins"></p>
+                                    </div>
+                                </div>
+                                <h5 class="text-dark border-bottom pb-2">Ingredients</h5>
+                                <p id="modal-ingredients" class="text-muted" style="white-space: pre-wrap;"></p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h5 class="text-dark border-bottom pb-2">Instructions</h5>
+                            <p id="modal-directions" class="text-dark" style="white-space: pre-wrap; line-height: 1.6;">
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Cooking Mode Step View -->
+                    <div id="step-view" class="d-none text-center py-4">
+                        <div class="progress mb-4" style="height: 5px;">
+                            <div id="step-progress" class="progress-bar bg-primary" role="progressbar"
+                                style="width: 0%"></div>
+                        </div>
+                        <h4 id="step-counter" class="text-muted mb-3">Step 1</h4>
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body p-4 bg-light rounded">
+                                <p id="step-text" class="lead mb-0 text-dark"
+                                    style="font-size: 1.25rem; line-height: 1.8;"></p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center gap-3">
+                            <button class="btn btn-secondary px-4" onclick="prevStep()"><i
+                                    class="fa fa-arrow-left me-2"></i>Previous</button>
+                            <button class="btn btn-info text-white px-4 mx-2" onclick="speakStep()"><i
+                                    class="fa fa-volume-up me-2"></i>Read Aloud</button>
+                            <button id="btn-next" class="btn btn-primary px-4" onclick="nextStep()">Next<i
+                                    class="fa fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="resetModalView()"
+                        data-bs-dismiss="modal">Close</button>
+                    <button id="btn-start-cooking" type="button" class="btn btn-primary" onclick="startCooking()">Start
+                        Cooking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var recipeModal = document.getElementById('recipeModal')
+
+        // Ensure modal resets when closed (by X, backdrop, or key)
+        recipeModal.addEventListener('hidden.bs.modal', function () {
+            resetModalView();
+        })
+
+        recipeModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+
+            // Extract info from data-bs-* attributes
+            var title = button.getAttribute('data-title')
+            var image = button.getAttribute('data-image')
+            var prep = button.getAttribute('data-prep')
+            var cook = button.getAttribute('data-cook')
+            var ingredients = button.getAttribute('data-ingredients')
+            var directions = button.getAttribute('data-directions')
+
+            // Update the modal's content.
+            var modalTitle = recipeModal.querySelector('#modal-title')
+            var modalImage = recipeModal.querySelector('#modal-image')
+            var modalPrep = recipeModal.querySelector('#modal-prep')
+            var modalCook = recipeModal.querySelector('#modal-cook')
+            var modalIngredients = recipeModal.querySelector('#modal-ingredients')
+            var modalDirections = recipeModal.querySelector('#modal-directions')
+
+            // Nutrition elements
+            var modalCalories = recipeModal.querySelector('#modal-calories')
+            var modalFat = recipeModal.querySelector('#modal-fat')
+            var modalCarbs = recipeModal.querySelector('#modal-carbs')
+            var modalVitamins = recipeModal.querySelector('#modal-vitamins')
+
+            modalTitle.textContent = title
+            modalImage.src = image
+            modalPrep.textContent = prep
+            modalCook.textContent = cook
+            modalIngredients.textContent = ingredients
+            modalDirections.textContent = directions
+
+            // Set nutrition content
+            modalCalories.textContent = button.getAttribute('data-calories') + ' kcal'
+            modalFat.textContent = button.getAttribute('data-fat') + ' g'
+            modalCarbs.textContent = button.getAttribute('data-carbs') + ' g'
+            modalVitamins.textContent = button.getAttribute('data-vitamins')
+        })
+
+        // Cooking Mode Logic
+        var currentStep = 0;
+        var steps = [];
+        var msg = new SpeechSynthesisUtterance();
+
+        function startCooking() {
+            var rawDirections = document.getElementById('modal-directions').textContent;
+
+            // Intelligent splitting:
+            // 1. Split by '**' (original separator)
+            // 2. Then split by '.' followed by space or newline (sentence structure) to make it more detailed
+            // 3. Clean up whitespace
+            steps = rawDirections
+                .split(/\*\*|(?<=[.?!])\s+(?=[A-Z])/) // Split by ** OR sentence endings followed by space and Capital letter
+                .map(s => s.trim())
+                .filter(s => s.length > 3); // Filter out empty or tiny artifacts
+
+            if (steps.length > 0) {
+                currentStep = 0;
+                document.getElementById('summary-view').classList.add('d-none');
+                document.getElementById('step-view').classList.remove('d-none');
+                document.getElementById('btn-start-cooking').classList.add('d-none');
+                updateStepView();
+            } else {
+                alert("No step-by-step instructions available for this recipe.");
+            }
+        }
+
+        function updateStepView() {
+            document.getElementById('step-counter').textContent = `Step ${currentStep + 1} of ${steps.length}`;
+            document.getElementById('step-text').textContent = steps[currentStep];
+
+            // Update progress bar
+            var percent = ((currentStep + 1) / steps.length) * 100;
+            document.getElementById('step-progress').style.width = percent + '%';
+
+            // Button states
+            var nextBtn = document.getElementById('btn-next');
+            if (currentStep === steps.length - 1) {
+                nextBtn.innerHTML = 'Finish <i class="fa fa-check ms-2"></i>';
+                nextBtn.classList.replace('btn-primary', 'btn-success');
+            } else {
+                nextBtn.innerHTML = 'Next <i class="fa fa-arrow-right ms-2"></i>';
+                nextBtn.classList.replace('btn-success', 'btn-primary');
+            }
+
+            // Auto-speak? Optional. Let's not auto-speak to avoid being annoying.
+            // speakStep(); 
+        }
+
+        function nextStep() {
+            window.speechSynthesis.cancel();
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateStepView();
+            } else {
+                // Finish
+                resetModalView();
+            }
+        }
+
+        function prevStep() {
+            window.speechSynthesis.cancel();
+            if (currentStep > 0) {
+                currentStep--;
+                updateStepView();
+            }
+        }
+
+        function speakStep() {
+            window.speechSynthesis.cancel();
+            msg.text = steps[currentStep];
+            window.speechSynthesis.speak(msg);
+        }
+
+        function resetModalView() {
+            window.speechSynthesis.cancel();
+            document.getElementById('summary-view').classList.remove('d-none');
+            document.getElementById('step-view').classList.add('d-none');
+            document.getElementById('btn-start-cooking').classList.remove('d-none');
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MealMind</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/animate/animate.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>MealMind </h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ url_for('index') }}" class="nav-item nav-link active">Home</a>
+                <a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
+
+
+                <!---<a href="{{ url_for('contact') }}" class="nav-item nav-link">Predictions</a>--->
+                <a href="{{ url_for('prediction') }}" class="nav-item nav-link">Recommendations</a>
+                <a href="{{ url_for('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log Out<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid hero-header py-5 mb-5">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-start">
+                    <h1 class="display-3 hero-title animated slideInDown mb-4">Discover Simple, <br>Delicious and
+                        <br><span class="text-primary">Fast Recipes!</span>
+                    </h1>
+                    <p class="fs-5 text-dark mb-4 pb-2">A Recipe is Soulless. The essence of Recipe must Come from you.
+                        The Cook</p>
+                    <a href="{{ url_for('prediction') }}"
+                        class="btn btn-dark-pill py-3 px-5 animated slideInLeft">Explore</a>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="position-relative d-inline-block">
+                        <div class="hero-blob"></div>
+                        <div class="hero-img-wrap animated zoomIn">
+                            <!-- Using the existing salmon image as requested -->
+                            <img class="img-fluid" src="../static/img/istockphoto-1214416414-612x612.jpg"
+                                alt="Delicious Food">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Service Start -->
+
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                        <img class="img-fluid position-absolute w-100 h-100"
+                            src="../static/img/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg" alt=""
+                            style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
+                    <h1 class="mb-4">Welcome to MealMind Classification</h1>
+                    <p class="mb-4">Food have a variety of Recipes and it is difficult to collect enough records for
+                        each Recipes and hence the problem of class imbalance arises. </p>
+                    <p class="mb-4"></p>
+                    <div class="row gy-2 gx-4 mb-4">
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Sweet</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>sour</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>bitter</p>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>salty</p>
+                        </div>
+
+                    </div>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Categories Start -->
+    <div class="container-xxl py-5 category">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
+                <h1 class="mb-5">MealMind Classification</h1>
+            </div>
+            <div class="row g-3">
+                <div class="col-lg-7 col-md-6">
+                    <div class="row g-3">
+                        <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
+                            <a class="position-relative d-block overflow-hidden"
+                                href="https://www.youtube.com/@BonAppetit" target="_blank">
+                                <img class="img-fluid" src="../static/img/images.jpg" alt="">
+                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+                                    style="margin: 1px;">
+                                    <h5 class="m-0"></h5>
+                                    <small class="text-primary"></small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.3s">
+                            <a class="position-relative d-block overflow-hidden"
+                                href="https://www.youtube.com/@GordonRamsay" target="_blank">
+                                <img class="img-fluid"
+                                    src="../static/img/233613-Best-Damn-Chili-mfs-242-add30d5ed848426da015147a352ae662.jpg"
+                                    alt="">
+                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+                                    style="margin: 1px;">
+                                    <h5 class="m-0"></h5>
+                                    <small class="text-primary"></small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
+                            <a class="position-relative d-block overflow-hidden"
+                                href="https://www.youtube.com/@BabishCulinaryUniverse" target="_blank">
+                                <img class="img-fluid"
+                                    src="../static/img/360_F_482689427_gLAos6ShFUbHifO1ecVfdM9d790Xbo7M.jpg" alt="">
+                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+                                    style="margin: 1px;">
+                                    <h5 class="m-0"></h5>
+                                    <small class="text-primary"></small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;">
+                    <a class="position-relative d-block h-100 overflow-hidden" href="https://www.youtube.com/@tasty"
+                        target="_blank">
+                        <img class="img-fluid position-absolute w-100 h-100"
+                            src="../static/img/Crispy-Falafel-Recipe-1200.jpg" alt="" style="object-fit: cover;">
+                        <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+                            style="margin:  1px;">
+                            <h5 class="m-0"></h5>
+                            <small class="text-primary"></small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Categories Start -->
+
+
+
+
+
+
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-primary px-3">Recipes</h6>
+                <h1 class="mb-5"></h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel position-relative">
+                <div class="testimonial-item text-center">
+                    <a href="https://www.youtube.com/@BonAppetit" target="_blank">
+                        <img class="border rounded-circle p-2 mx-auto mb-3"
+                            src="../static/img/3dd4dd2436336bee002f7e9ec00e11ee.jpg" style="width: 80px; height: 80px;">
+                    </a>
+                    <h5 class="mb-0"></h5>
+                    <p></p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                        <p class="mb-0"></p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <a href="https://www.youtube.com/@nammaadige" target="_blank">
+                        <img class="border rounded-circle p-2 mx-auto mb-3"
+                            src="../static/img/Crispy-Falafel-Recipe-1200.jpg" style="width: 80px; height: 80px;">
+                    </a>
+                    <h5 class="mb-0"></h5>
+                    <p></p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                        <p class="mb-0"> </p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <a href="https://www.youtube.com/@BabishCulinaryUniverse" target="_blank">
+                        <img class="border rounded-circle p-2 mx-auto mb-3"
+                            src="../static/img/360_F_482689427_gLAos6ShFUbHifO1ecVfdM9d790Xbo7M.jpg"
+                            style="width: 80px; height: 80px;">
+                    </a>
+                    <h5 class="mb-0"></h5>
+                    <p></p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                        <p class="mb-0">.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <a href="https://www.youtube.com/@tasty" target="_blank">
+                        <img class="border rounded-circle p-2 mx-auto mb-3"
+                            src="../static/img/idli_dsc6073-(3)-9-187618.jpg" style="width: 80px; height: 80px;">
+                    </a>
+                    <h5 class="mb-0"></h5>
+                    <p></p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                        <p class="mb-0"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+
+    <!-- Footer Start -->
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/lib/wow/wow.min.js"></script>
+    <script src="static/lib/easing/easing.min.js"></script>
+    <script src="static/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="static/js/main.js"></script>
+</body>
+
+</html>
